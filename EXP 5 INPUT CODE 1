@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define size 100
+struct stack
+{
+int s[size];
+int top;
+} st;
+/* Check Stack Empty */
+int stempty()
+{
+if (st.top == -1)
+return 1;
+else
+return 0;
+}
+/* Check Stack Full */
+int stfull()
+{
+if (st.top >= size - 1)
+return 1;
+else
+return 0;
+}
+/* Push Operation */
+void push(int item)
+{
+if (stfull())
+{
+printf("\nStack is full");
+}
+else
+
+{
+st.top++;
+st.s[st.top] = item;
+printf("\n%d pushed into stack", item);
+}
+}
+/* Pop Operation */
+int pop()
+{
+int item;
+if (stempty())
+{
+printf("\nStack is empty");
+return -1;
+}
+else
+{
+item = st.s[st.top];
+st.top--;
+return item;
+}
+}
+/* Display Operation */
+void display()
+{
+int i;
+if (stempty())
+{
+printf("\nStack is empty");
+}
+else
+{
+printf("\nStack elements are:\n");
+for (i = st.top; i >= 0; i--)
+{
+printf("%d\n", st.s[i]);
+}
+}
+}
+
+/* Main Function */
+int main()
+{
+int choice, item;
+st.top = -1;
+do
+{
+printf("\n\n===== STACK MENU =====");
+printf("\n1. Push");
+printf("\n2. Pop");
+printf("\n3. Display");
+printf("\n4. Exit");
+printf("\n\nEnter your choice: ");
+scanf("%d", &choice);
+switch (choice)
+{
+case 1:
+printf("Enter element to push: ");
+scanf("%d", &item);
+push(item);
+break;
+case 2:
+item = pop();
+if (item != -1)
+{
+printf("\nPopped element = %d", item);
+}
+break;
+case 3:
+display();
+break;
+case 4:
+printf("\nProgram exited.");
+break;
+
+default:
+printf("\nInvalid choice! Please try again.");
+}
+} while (choice != 4);
+return 0;
+}
