@@ -1,0 +1,152 @@
+
+#include <stdio.h>
+
+struct student
+{
+    int rollNo;
+    char name[50];
+    float marks;
+};
+
+void create(struct student s[], int n)
+{
+    int i;
+
+    for (i = 0; i < n; i++)
+    {
+        printf("\nEnter details of Student %d\n", i + 1);
+
+        printf("Enter Roll No: ");
+        scanf("%d", &s[i].rollNo);
+
+        printf("Enter Name: ");
+        scanf("%49s", s[i].name);
+
+        printf("Enter Marks: ");
+        scanf("%f", &s[i].marks);
+    }
+}
+
+void display(struct student s[], int n)
+{
+    int i;
+
+    printf("\n--- Student Details ---\n");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("\nRoll No: %d", s[i].rollNo);
+        printf("\nName: %s", s[i].name);
+        printf("\nMarks: %.2f\n", s[i].marks);
+    }
+}
+
+void linearSearch(struct student s[], int n)
+{
+    int i, roll, found = 0;
+
+    printf("\nEnter Roll No to search: ");
+    scanf("%d", &roll);
+
+    for (i = 0; i < n; i++)
+    {
+        if (s[i].rollNo == roll)
+        {
+            printf("\nStudent Found!\n");
+            printf("Roll No: %d\n", s[i].rollNo);
+            printf("Name: %s\n", s[i].name);
+            printf("Marks: %.2f\n", s[i].marks);
+            found = 1;
+            break;
+        }
+    }
+
+    if (found == 0)
+    {
+        printf("\nStudent Not Found!\n");
+    }
+}
+
+void sort(struct student s[], int n)
+{
+    int i, j;
+    struct student temp;
+
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = 0; j < n - i - 1; j++)
+        {
+            if (s[j].marks > s[j + 1].marks)
+            {
+                temp = s[j];
+                s[j] = s[j + 1];
+                s[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("\nStudents are sorted according to their marks\n");
+}
+
+int main(void)
+{
+    struct student s[5];
+    int choice;
+    int created = 0;
+
+    do
+    {
+        printf("\n===== Student Record System =====\n");
+        printf("1. Create Student Details\n");
+        printf("2. Display Student Details\n");
+        printf("3. Linear Search\n");
+        printf("4. Sort by Marks\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("\nInvalid input!\n");
+            return 0;
+        }
+
+        switch (choice)
+        {
+            case 1:
+                create(s, 5);
+                created = 1;
+                break;
+
+            case 2:
+                if (created)
+                    display(s, 5);
+                else
+                    printf("\nPlease create student details first!\n");
+                break;
+
+            case 3:
+                if (created)
+                    linearSearch(s, 5);
+                else
+                    printf("\nPlease create student details first!\n");
+                break;
+
+            case 4:
+                if (created)
+                    sort(s, 5);
+                else
+                    printf("\nPlease create student details first!\n");
+                break;
+
+            case 5:
+                printf("\nExiting program...\n");
+                break;
+
+            default:
+                printf("\nInvalid choice! Please try again.\n");
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
